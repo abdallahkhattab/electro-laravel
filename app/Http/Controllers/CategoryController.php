@@ -12,12 +12,20 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
 
+        $search = $request->input('table_search');
+
+        $query = Category::query();
+
+        if(!empty($search)){
+            $query->where('name', 'LIKE', "%{$search}%")
+            ->orWhere('slug', 'LIKE', "%{$search}%");
+      }
         $categories = Category::paginate(10);
 
-        return view('dashboard.includes.categories.categories',compact('categories'));
+        return view('dashboard.includes.categories.categories',compact('categories','search'));
     }
 
     /**
@@ -41,6 +49,9 @@ class CategoryController extends Controller
             'name' => 'required|string|max:225',
         ]);
 
+
+        try{
+ 
         $category = new Category();
         $category->name = $request->input('name');
 
@@ -50,7 +61,13 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return redirect()->route('dashboard.category')->with('success','Catrgory created successfully');
+     return redirect()->route('dashboard.category')->with('success','Catrgory created successfully');
+
+        }catch(\Exception $e){
+
+        return redirect()->route('dashboard.category')->withErrors('Error creating category.');
+
+        }
     }
 
     /**
@@ -67,9 +84,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         //
-
-        $category = Category::all();
-       // return view('dashboard.includes.categories.create-category',compact('category'));
+        return view('dashboard.includes.categories.edit-category',compact('category'));
     }
 
     /**
@@ -84,14 +99,21 @@ class CategoryController extends Controller
             'status' => 'required',  
         ]);
 
-        $category = Category::findorFail($id);
+        try{
+            $category = Category::findorFail($id);
 
-        $category->name = $request->input('name');
-        $category->slug = Str::slug($request->input('name'));
-        $category->status = $request->input('status') == '1' ? true : false;
-        $category->save();
+            $category->name = $request->input('name');
+            $category->slug = Str::slug($request->input('name'));
+            $category->status = $request->input('status') == '1' ? true : false;
+            $category->save();
+    
+            return redirect()->route('dashboard.category')->with('success','Category Updated successfully');
+    
+        }catch(\Exception $r){
 
-        return redirect()->route('dashboard.category')->with('success','Category Created successfully');
+            return redirect()->route('dashboard.category')->withErrors('something went wrong.');
+
+        }
     }
 
     /**
@@ -100,5 +122,9 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+        $category->delete();
+        return redirect()->route('dashboard.category')->with('success', 'Category deleted successfully');
+    
+
     }
 }

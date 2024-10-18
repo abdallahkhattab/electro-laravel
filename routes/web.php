@@ -35,17 +35,24 @@ Route::prefix('dashboard')->group(function () {
 
 
     //display creation form
-    Route::get('/create-category',[CategoryController::class,'create'])
+    Route::get('/categories/create-category',[CategoryController::class,'create'])
     ->name('dashboard.createCategory.show');
 
     //update Category
 
-    Route::get('/edit-category',[CategoryController::class,'edit'])
+    Route::get('/categories/edit/{category}',[CategoryController::class,'edit'])
     ->name('dashboard.createCategory.edit');
+
+    Route::put('/update-category/{category}',[CategoryController::class,'update'])
+    ->name('dashboard.updateCategory');
 
     //save category
     Route::post('/create-category',[CategoryController::class,'store'])
     ->name('dashboard.createCategory.store');
+
+    //delete category
+    Route::delete('categories/delete-category/{category}',[CategoryController::class,'destroy'])
+    ->name('dashboard.deleteCategory');
 
     Route::get('/brands', function() {
         return view('dashboard.includes.brands.brands');

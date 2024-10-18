@@ -5,3 +5,4 @@
 		<!-- Theme style -->
 		<link rel="stylesheet" href="{{ asset('dashboardAssets/css/adminlte.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('dashboardAssets/css/custom.css') }}">
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

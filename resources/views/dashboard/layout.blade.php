@@ -38,6 +38,7 @@
 				@yield('users')
 				@yield('categories')
 				@yield('subCategory')
+				@yield('editCategory')
 				@yield('createUser')
 				@yield('createBrand')
 				@yield('createCategory')
