@@ -7,7 +7,7 @@
 								<h1>Products</h1>
 							</div>
 							<div class="col-sm-6 text-right">
-								<a href="{{ route('dasboard.createProducts') }}" class="btn btn-primary">New Product</a>
+								<a href="{{ route('dashboard.createProducts') }}" class="btn btn-primary">New Product</a>
 							</div>
 						</div>
 					</div>

@@ -7,6 +7,8 @@
 
 
 		@include('dashboard.includes.css')
+		@stack('css')
+
 	</head>
 	<body class="hold-transition sidebar-mini">
 		<!-- Site wrapper -->
@@ -38,9 +40,11 @@
 				@yield('users')
 				@yield('categories')
 				@yield('subCategory')
+				@yield('editSubCategory')
 				@yield('editCategory')
 				@yield('createUser')
 				@yield('createBrand')
+				@yield('editBrand')
 				@yield('createCategory')
 				@yield('createSubCategory')
 				@yield('createPage')
@@ -58,5 +62,8 @@
 		<!-- ./wrapper -->
 	    
 		@include('dashboard.includes.js')
+		
+		@stack('js')
+
 	</body>
 </html>

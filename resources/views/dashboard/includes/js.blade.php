@@ -6,3 +6,5 @@
     <script src="{{ asset('dashboardAssets/js/adminlte.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('dashboardAssets/js/demo.js')}}"></script>
+
+

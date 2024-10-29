@@ -32,7 +32,7 @@
 								<input type="text" name="name" id="name" class="form-control" placeholder="Name" required>	
 							</div>
 						</div>
-											<!-- Example Dropdown List UI -->
+						
 						<div class="mb-3">
 						<label for="status">Status</label>
 						<select class="form-control" id="status" name="status">

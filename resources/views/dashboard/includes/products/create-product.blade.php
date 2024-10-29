@@ -1,6 +1,12 @@
 @extends('dashboard.layout')
 @section('link','create Product')
 @section('createProduct')
+@push('css')
+<script src="assets('dashboardAssets/plugins/dropzone/min/dropzone.min.css')"></script>
+
+
+@endpush
+
 				<section class="content-header">					
 					<div class="container-fluid my-2">
 						<div class="row mb-2">
@@ -170,27 +176,33 @@
 					<!-- /.card -->
 				</section>
 				<!-- /.content -->
-        <script>
-            Dropzone.autoDiscover = false;    
-            $(function () {
-                // Summernote
-                $('.summernote').summernote({
-                    height: '300px'
-                });
-               
-                const dropzone = $("#image").dropzone({ 
-                    url:  "create-product.html",
-                    maxFiles: 5,
-                    addRemoveLinks: true,
-                    acceptedFiles: "image/jpeg,image/png,image/gif",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    }, success: function(file, response){
-                        $("#image_id").val(response.id);
-                    }
-                });
 
+                @push('js')
+<script src="assets('dashboardAssets/plugins/dropzone/min/dropzone.min.js')"></script>
+
+    <script>
+        Dropzone.autoDiscover = false;    
+        $(function () {
+            // Summernote
+            $('.summernote').summernote({
+                height: '300px'
             });
-        </script>
+           
+            const dropzone = $("#image").dropzone({ 
+                url:  "create-product.html",
+                maxFiles: 5,
+                addRemoveLinks: true,
+                acceptedFiles: "image/jpeg,image/png,image/gif",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }, success: function(file, response){
+                    $("#image_id").val(response.id);
+                }
+            });
+
+        });
+    </script>
+@endpush
+    
 
 @endsection

@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
+use App\Models\dashboard\SubCategory;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,7 +38,7 @@ Route::prefix('dashboard')->group(function () {
 
 
     //display creation form
-    Route::get('/categories/create-category',[CategoryController::class,'create'])
+    Route::get('/categories/create',[CategoryController::class,'create'])
     ->name('dashboard.createCategory.show');
 
     //update Category
@@ -51,25 +54,66 @@ Route::prefix('dashboard')->group(function () {
     ->name('dashboard.createCategory.store');
 
     //delete category
-    Route::delete('categories/delete-category/{category}',[CategoryController::class,'destroy'])
+    Route::delete('categories/delete/{category}',[CategoryController::class,'destroy'])
     ->name('dashboard.deleteCategory');
+/*********************************************************************************** */
 
-    Route::get('/brands', function() {
-        return view('dashboard.includes.brands.brands');
-    })->name('dashboard.brands');
+  // sub-Category
 
-    Route::get('/create-brand', function() {
-        return view('dashboard.includes.brands.create-brand');
-    })->name('dashboard.createBrands');
 
-    Route::get('/sub-category', function() {
-        return view('dashboard.includes.categories.subcategory');
-    })->name('dashboard.subCategory');
 
-    Route::get('/create-subCategory', function() {
-        return view('dashboard.includes.categories.create-subcategory');
-    })->name('dashboard.createSubCategory');
+    Route::get('/sub-category',[SubCategoryController::class,'index'])
+    ->name('dashboard.subCategory');
 
+    Route::get('/sub-category/show',[SubCategoryController::class,'create'])
+    ->name('dashboard.createSubCategory.show');
+
+    
+    
+
+    Route::post('/sub-category',[SubCategoryController::class,'store'])
+    ->name('dashboard.createSubCategory.store');
+
+
+    Route::get('/sub-category/edit/{subCategory}',[SubCategoryController::class,'edit'])
+    ->name('dashboard.subcategory.edit');
+
+    Route::put('/subcategory-edit/{subCategory}',[SubCategoryController::class,'update'])
+    ->name('dashboard.subcategory.update');
+
+    Route::delete('/subcategory-delete/{subCategory}',[SubCategoryController::class,'destroy'])
+    ->name('dashboard.subcategory.delete');
+
+/*********************************************************************************** */
+
+
+
+
+
+    Route::get('/brands',[BrandsController::class,'index'])
+    ->name('dashboard.brands');
+
+
+    Route::get('/create-brand/show',[BrandsController::class,'create'])
+    ->name('dashboard.createBrands');
+
+    Route::post('/create-brand',[BrandsController::class,'store'])
+    ->name('dashboard.createBrands.store');
+
+
+    Route::get('/edit-brands/{brand}',[BrandsController::class,'edit'])
+    ->name('dashboard.editBrands');
+
+    
+    Route::put('/edit-brands/update/{brand}',[BrandsController::class,'update'])
+    ->name('dashboard.updateBrands');
+
+    
+    Route::delete('/edit-brands/delete/{brand}',[BrandsController::class,'destroy'])
+    ->name('dashboard.deleteBrands');
+/*********************************************************************************** */
+
+    
     Route::get('/products', function() {
         return view('dashboard.includes.products.products');
     })->name('dashboard.products');

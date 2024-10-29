@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\dashboard\Brand;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\dashboard\Brand;
+use Symfony\Component\Console\Input\Input;
 
 class BrandsController extends Controller
 {
@@ -13,6 +15,10 @@ class BrandsController extends Controller
     public function index()
     {
         //
+
+        $brands = Brand::all();
+
+        return view('dashboard.includes.brands.brands',compact('brands'));
         
     }
 
@@ -22,6 +28,8 @@ class BrandsController extends Controller
     public function create()
     {
         //
+
+        return view('dashboard.includes.brands.create-brand');
     }
 
     /**
@@ -30,6 +38,27 @@ class BrandsController extends Controller
     public function store(Request $request)
     {
         //
+
+        $request-> validate([
+            'name' => 'required',
+            'status' => 'required',
+            
+        ]);
+
+        $brand = new Brand();
+
+        $brand -> name = $request ->input('name');
+
+        $brand -> status = $request ->input('status');
+
+        $brand -> slug =  Str::slug($request->input('name'));
+
+       // dd($request->all());
+
+        $brand->save();
+
+        return redirect()->route('dashboard.brands')->with('success', 'Brand created successfully.');
+
     }
 
     /**
@@ -46,6 +75,8 @@ class BrandsController extends Controller
     public function edit(Brand $brand)
     {
         //
+
+        return view('dashboard.includes.brands.edit-brand',compact('brand'));
     }
 
     /**
@@ -54,6 +85,20 @@ class BrandsController extends Controller
     public function update(Request $request, Brand $brand)
     {
         //
+
+        $request -> validate([
+            'name' => 'required',
+            'status' => 'required',
+        ]);
+
+
+        $brand -> name = $request->input('name');
+        $brand -> status = $request ->input('status');
+        $brand -> slug =  Str::slug($request->input('name'));
+
+        $brand->update();
+
+        return redirect()->route('dashboard.brands')->with('success', 'Brand updated successfully.');
     }
 
     /**
@@ -62,5 +107,9 @@ class BrandsController extends Controller
     public function destroy(Brand $brand)
     {
         //
+
+        $brand->delete();
+
+        return redirect()->route('dashboard.brands')->with('success', 'Brand deleted successfully.');
     }
 }

@@ -3,6 +3,11 @@
 @section('title','product')
 @section('product')
 
+@push('css')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css'>
+
+@endpush
 		<!-- BREADCRUMB -->
 		<div id="breadcrumb" class="section">
 			<!-- container -->
@@ -505,5 +510,22 @@
 		<!-- /Section -->
 
 
+@push('js')
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js'></script>
+<script src="./script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" />
+<script>
+    $(document).ready(function() {
+        $('.js-examples-basic-multiple').select2({
+            placeholder: "Select categories.",
+        });
 
+        $('.dropify').dropify();
+    });
+</script>
+
+	
+@endpush
 @endsection
