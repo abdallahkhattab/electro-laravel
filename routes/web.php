@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 use App\Models\dashboard\SubCategory;
 use Illuminate\Support\Facades\Route;
@@ -113,14 +114,25 @@ Route::prefix('dashboard')->group(function () {
     ->name('dashboard.deleteBrands');
 /*********************************************************************************** */
 
-    
-    Route::get('/products', function() {
-        return view('dashboard.includes.products.products');
-    })->name('dashboard.products');
+  
+    Route::get('/products',[ProductController::class,'index'])
+    ->name('dashboard.products');
 
-    Route::get('/create-product', function() {
-        return view('dashboard.includes.products.create-product');
-    })->name('dashboard.createProducts');
+
+    Route::get('/create-product',[ProductController::class,'create'])
+    ->name('dashboard.createProducts');
+
+    Route::post('/store-product',[ProductController::class,'store'])
+    ->name('dashboard.storeProducts');
+
+    Route::get('/edit-product/{product}',[ProductController::class,'edit'])
+    ->name('dashboard.editProducts');
+
+    Route::put('/products/update/{product}',[ProductController::class,'update'])
+    ->name('dashboard.updateProducts');
+
+    /*********************************************************************************** */
+
 
     Route::get('/orders', function() {
         return view('dashboard.includes.orders.orders');

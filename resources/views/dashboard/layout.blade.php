@@ -49,6 +49,7 @@
 				@yield('createSubCategory')
 				@yield('createPage')
 				@yield('createProduct')
+				@yield('EditProduct')
 				@yield('orderDetail')
 				@yield('orders')
 				@yield('paymentMethods')
@@ -62,6 +63,7 @@
 		<!-- ./wrapper -->
 	    
 		@include('dashboard.includes.js')
+		
 		
 		@stack('js')
 
