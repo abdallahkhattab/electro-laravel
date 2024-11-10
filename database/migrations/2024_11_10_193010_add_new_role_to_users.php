@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('media', function (Blueprint $table) {
-        $table->id();
-         $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
-            $table->string('image_path');
-            $table->timestamps();
-        
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->string('role')->default('user');
+
         });
     }
 
@@ -25,6 +23,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('media');
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->dropColumn('role');
+        });
     }
 };

@@ -13,13 +13,12 @@ class Product extends Model
 
     protected $fillable =['name','slug','price','compare_at_price','qty','sku','subcategory_id','category_id','brand_id','featured','status','barcode'];
 
-    //generate random sku if input is empty
+    //generate random sku
     protected static function boot(){
         parent::boot();
 
         static::creating(function($product){
             $product->sku = Product::generateSku();
-
 
         });
     }

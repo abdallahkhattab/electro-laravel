@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('',function(){
     return view('front.includes.homeContent');
 });
+
+Route::get('/Electro',[UserController::class,'index'])
+->name('Electro');
 
 
 Route::get('/product',function(){
